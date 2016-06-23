@@ -68,6 +68,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIAlertViewDel
             self.alert("Empty Field", message: "Please fill in both fields to proceed")
             return
         }
+        
         activityIndicator.startAnimating()
         /* from udacity api documentation */
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
