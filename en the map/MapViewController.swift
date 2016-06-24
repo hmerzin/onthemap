@@ -184,7 +184,6 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
         self.navigationController!.navigationBar.barTintColor = UIColor.orangeColor()
         /* http://stackoverflow.com/questions/26048765/how-to-set-navigation-bar-font-colour-and-size */
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        print("the idkey here for appdelegate is \(self.appDelegate.UserID!)")
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -196,8 +195,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     
     func deleteSession() {
         /* from udacity api docs */
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController")
-        self.presentViewController(controller, animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: {})
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
         var xsrfCookie: NSHTTPCookie? = nil
