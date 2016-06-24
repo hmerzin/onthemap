@@ -29,8 +29,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LoginViewController")
-        self.presentViewController(controller, animated: true, completion: nil)
+        self.dismissViewControllerAnimated(true, completion: {})
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "DELETE"
         var xsrfCookie: NSHTTPCookie? = nil

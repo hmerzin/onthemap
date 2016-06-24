@@ -35,6 +35,14 @@ class EnterLocationViewController: UIViewController {
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: {})
+    }
+    
+    @IBAction func dismissButtonPressed(sender: AnyObject) {
+        dismiss()
+    }
+    
     @IBAction func locationEntered(sender: AnyObject) {
         activityIndicator.startAnimating()
         print("pressed")
@@ -109,6 +117,14 @@ class EnterURLViewController: UIViewController {
 //        }
 //        task.resume()
 //    }
+    
+    func dismiss() {
+        self.dismissViewControllerAnimated(true, completion: {})
+    }
+    
+    @IBAction func dismissButtonPressed(sender: AnyObject) {
+        dismiss()
+    }
     
     func postPins() {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
