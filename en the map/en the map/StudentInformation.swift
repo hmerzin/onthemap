@@ -8,9 +8,9 @@
 
 import Foundation
 import CoreLocation
-struct Annotation {
-    var annotationDict: [[String: AnyObject]]
-    init(annotationsDict: [[String: AnyObject]]) {
+struct StudentInformation {
+    var annotationDict: [String: AnyObject]
+    init(annotationsDict: [String: AnyObject]) {
         self.annotationDict = annotationsDict
     }
 }

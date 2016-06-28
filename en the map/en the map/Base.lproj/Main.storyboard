@@ -472,37 +472,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Pjq-CW-K8G">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="WkU-DR-Fes">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Pjq-CW-K8G" firstAttribute="top" secondItem="hcR-A2-jEi" secondAttribute="bottom" id="9Ho-Zb-N18"/>
-                            <constraint firstItem="Pjq-CW-K8G" firstAttribute="bottom" secondItem="R7y-6J-OzT" secondAttribute="top" id="BLA-6y-UzC"/>
-                            <constraint firstAttribute="trailing" secondItem="Pjq-CW-K8G" secondAttribute="trailing" id="sqL-iP-ec1"/>
-                            <constraint firstItem="Pjq-CW-K8G" firstAttribute="leading" secondItem="wXK-NJ-syG" secondAttribute="leading" id="vsg-Co-Yap"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WkU-DR-Fes" secondAttribute="trailing" constant="-20" id="8DK-ty-XpC"/>
+                            <constraint firstItem="WkU-DR-Fes" firstAttribute="leading" secondItem="wXK-NJ-syG" secondAttribute="leadingMargin" constant="-20" id="FOe-zz-u8u"/>
+                            <constraint firstItem="WkU-DR-Fes" firstAttribute="top" secondItem="hcR-A2-jEi" secondAttribute="bottom" id="nPx-hD-Pl2"/>
+                            <constraint firstItem="R7y-6J-OzT" firstAttribute="top" secondItem="WkU-DR-Fes" secondAttribute="bottom" id="sMK-Wd-FjO"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="Pjq-CW-K8G"/>
+                                <exclude reference="WkU-DR-Fes"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="9Ho-Zb-N18"/>
-                                <exclude reference="BLA-6y-UzC"/>
-                                <exclude reference="sqL-iP-ec1"/>
-                                <exclude reference="vsg-Co-Yap"/>
+                                <exclude reference="8DK-ty-XpC"/>
+                                <exclude reference="FOe-zz-u8u"/>
+                                <exclude reference="nPx-hD-Pl2"/>
+                                <exclude reference="sMK-Wd-FjO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="Pjq-CW-K8G"/>
+                                <include reference="WkU-DR-Fes"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="9Ho-Zb-N18"/>
-                                <include reference="BLA-6y-UzC"/>
-                                <include reference="sqL-iP-ec1"/>
-                                <include reference="vsg-Co-Yap"/>
+                                <include reference="8DK-ty-XpC"/>
+                                <include reference="FOe-zz-u8u"/>
+                                <include reference="nPx-hD-Pl2"/>
+                                <include reference="sMK-Wd-FjO"/>
                             </mask>
                         </variation>
                     </view>
@@ -532,7 +532,7 @@
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
-                        <outlet property="mapView" destination="Pjq-CW-K8G" id="czA-BM-bFL"/>
+                        <outlet property="mapView" destination="WkU-DR-Fes" id="98j-s8-CS5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6LZ-72-Zbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -575,7 +575,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NY0-Hg-OGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816.5" y="1431"/>
+            <point key="canvasLocation" x="1816" y="1591"/>
         </scene>
         <!--List-->
         <scene sceneID="z3M-vX-Tou">
@@ -741,7 +741,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BmC-hv-SBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2734.5" y="1431"/>
+            <point key="canvasLocation" x="2734" y="1591"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Mob-zr-9VG">
@@ -765,7 +765,7 @@
         <!--Enter Location View Controller-->
         <scene sceneID="YJc-uD-99F">
             <objects>
-                <viewController storyboardIdentifier="URLViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cWC-h3-S05" customClass="EnterLocationViewController" customModule="en_the_map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cWC-h3-S05" customClass="EnterLocationViewController" customModule="en_the_map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A9E-P7-WqI"/>
                         <viewControllerLayoutGuide type="bottom" id="0zP-qC-OHi"/>

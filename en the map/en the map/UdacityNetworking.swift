@@ -8,8 +8,10 @@
 
 import Foundation
 import UIKit
-class UdacityNetworking: NSObject{
+class UdacityNetworking {
+   
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
     func login(completionHandler: (connection: Bool?, statusCode: Int?, error: NSError?) -> Void, username: String?, password: String?) {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
         request.HTTPMethod = "POST"
@@ -22,10 +24,9 @@ class UdacityNetworking: NSObject{
                 print("\(error)")
                 if(error!.code == -1009){
                     print("no connection")
-                    performUIUpdatesOnMain(){
-                        completionHandler(connection: false, statusCode: nil, error: error)
-                        return
-                    }
+                    completionHandler(connection: false, statusCode: nil, error: error)
+                    return
+                    
                 }else{
                     completionHandler(connection: nil, statusCode: nil, error: error)
                     print(error!.code)
@@ -33,6 +34,10 @@ class UdacityNetworking: NSObject{
                 }
             }
             let statusCode = (response as? NSHTTPURLResponse)?.statusCode
+            if (statusCode == 403) {
+                completionHandler(connection: true, statusCode: statusCode, error: error)
+                return
+            }
             let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
             // print(NSString(data: newData, encoding: NSUTF8StringEncoding))
             let parsedResult: AnyObject!
@@ -84,5 +89,31 @@ class UdacityNetworking: NSObject{
             print("It works... *jazz hands*")
         }
         task.resume()
+    }
+    
+    func deleteSession() {
+        //from udacity api docs
+        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
+        request.HTTPMethod = "DELETE"
+        var xsrfCookie: NSHTTPCookie? = nil
+        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithRequest(request) { data, response, error in
+            if error != nil { // Handle error…
+                print(error)
+                return
+            }
+            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
+            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
+        }
+        task.resume()
+        self.appDelegate.madePin = false
+        print("session deleted :)")
     }
 }

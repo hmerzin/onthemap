@@ -22,7 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var hasPin: Bool?
     var madePin: Bool?
     var infoDict: [[String:AnyObject]]?
-
+    var studentInfoArray: [StudentInformation]? //studentInfoArray[index]["value"]
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         UITabBar.appearance().tintColor = UIColor.orangeColor()
