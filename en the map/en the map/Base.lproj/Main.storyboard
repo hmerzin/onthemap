@@ -488,10 +488,10 @@
                                 <exclude reference="WkU-DR-Fes"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="sMK-Wd-FjO"/>
                                 <exclude reference="8DK-ty-XpC"/>
                                 <exclude reference="FOe-zz-u8u"/>
                                 <exclude reference="nPx-hD-Pl2"/>
-                                <exclude reference="sMK-Wd-FjO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -499,10 +499,10 @@
                                 <include reference="WkU-DR-Fes"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="sMK-Wd-FjO"/>
                                 <include reference="8DK-ty-XpC"/>
                                 <include reference="FOe-zz-u8u"/>
                                 <include reference="nPx-hD-Pl2"/>
-                                <include reference="sMK-Wd-FjO"/>
                             </mask>
                         </variation>
                     </view>

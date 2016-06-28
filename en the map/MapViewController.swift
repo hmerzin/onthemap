@@ -58,7 +58,42 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     //        return returnVal!
     //    }
     
-    func addAnnotations(annotations: [MKPointAnnotation]) {
+    func createPins(dictionary: [[String: AnyObject]]?) {
+        let locations = dictionary
+        var infoArray = [StudentInformation]()
+        for dictionary in locations! {
+            let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
+            let long = CLLocationDegrees(dictionary["longitude"] as! Double)
+            let first = dictionary["firstName"] as! String
+            let last = dictionary["lastName"] as! String
+            let mediaURL = dictionary["mediaURL"] as! String
+            let studentInfo = StudentInformation(annotationsDict: ["first": first, "last": last, "mediaURL": mediaURL, "latitude": lat, "longitude": long])
+            appDelegate.studentInfoArray?.append(studentInfo)
+            infoArray.append(studentInfo)
+        }
+        if let controller = appDelegate.window?.rootViewController?.presentedViewController as? MapViewController {
+            controller.dropPins(infoArray)
+        }
+    }
+    
+    func dropPins(studentInfo: [StudentInformation]) {
+        // from Pin Sample App
+        print("dropPins")
+        var annotations = [MKPointAnnotation]()
+        for (index, _) in studentInfo.enumerate() {
+            let annotation = MKPointAnnotation()
+            let infoArray = studentInfo[index]
+            let dict = infoArray.annotationDict
+            let lat = dict["latitude"] as? Double
+            let long = dict["longitude"] as? Double
+            annotation.coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
+            annotation.title = "\(dict["first"]) \(dict["last"])"
+            annotation.subtitle = dict["mediaURL"] as? String
+            annotations.append(annotation)
+        }
+        // When the array is complete, we add the annotations to the map.
+        //self.mapView.addAnnotations(annotations)
+        print("annotations: ",annotations)
         self.mapView.addAnnotations(annotations)
     }
     
@@ -105,7 +140,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        ParseNetworking().getPins()
+        StudentLocationViewModel().getPins({(dict) -> Void in
+            self.createPins(dict)
+        })
         // MARK: Not map things
         /* http://stackoverflow.com/questions/26956728/changing-the-status-bar-color-for-specific-viewcontrollers-using-swift-in-ios8 */
         UIApplication.sharedApplication().statusBarStyle = .LightContent
