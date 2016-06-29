@@ -106,7 +106,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinTintColor = UIColor.redColor()
+            let pinColor = UIColor.orangeColor()//(red: 0.45, green: 1.78, blue: 2.25, alpha: 1)
+            pinView!.pinTintColor = pinColor
+            //pinView!.image = UIImage(named: "PinImage")
             pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             pinView?.rightCalloutAccessoryView?.tintColor = UIColor.orangeColor()
         } else {
@@ -179,7 +181,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
         //            self.presentViewController(alertController, animated: true, completion: nil)
         //}else{
         //self.appDelegate.hasPin = false
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LocationViewController")
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("PinInfo")
         self.presentViewController(controller, animated: true, completion: nil)
         //}
     }
