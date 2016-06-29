@@ -17,9 +17,11 @@ class EnterLocationViewController: UIViewController {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
-    
+    @IBOutlet weak var checkButton: UIButton!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBarHidden = true
         activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
         /* http://stackoverflow.com/questions/25679075/set-uitextfield-placeholder-color-programmatically */
@@ -70,7 +72,7 @@ class EnterLocationViewController: UIViewController {
                 self.appDelegate.longitude = self.longitude  //"\(placemark.location?.coordinate.longitude)"
                 print("latlong \(self.appDelegate.latitue!), \(self.appDelegate.longitude!)")
                 let controller = self.storyboard!.instantiateViewControllerWithIdentifier("URLVC")
-                self.presentViewController(controller, animated: true, completion: nil)
+                self.showViewController((controller), sender: self.checkButton)
                 self.activityIndicator.stopAnimating()
             }
         })
@@ -97,6 +99,7 @@ class EnterURLViewController: UIViewController {
         super.viewDidLoad()
         print("PLEASE DONT BE NIL \(appDelegate.latitue!), \(appDelegate.longitude!)")
         urlField.attributedPlaceholder = NSAttributedString(string: "URL", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        self.navigationController?.navigationBarHidden = true
     }
     // parse api malfunctioning so I am not able to recieve json to use for the object id
 //    func putPins() {
@@ -165,10 +168,7 @@ class EnterURLViewController: UIViewController {
 //        } else {
 //            postPins()
 //        }
-        
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapViewController")
-        self.presentViewController(controller, animated: true, completion: nil)
-        
-        
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("PinInfo")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

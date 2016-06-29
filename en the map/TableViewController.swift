@@ -12,8 +12,7 @@ import UIKit
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet var tableView: UITableView!
-    
-    
+    let udacityNetworking = UdacityNetworking()
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
@@ -30,40 +29,26 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {})
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://www.udacity.com/api/session")!)
-        request.HTTPMethod = "DELETE"
-        var xsrfCookie: NSHTTPCookie? = nil
-        let sharedCookieStorage = NSHTTPCookieStorage.sharedHTTPCookieStorage()
-        for cookie in sharedCookieStorage.cookies! {
-            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
-        }
-        if let xsrfCookie = xsrfCookie {
-            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
-        }
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil { // Handle error…
-                print(error)
-                return
-            }
-            let newData = data!.subdataWithRange(NSMakeRange(5, data!.length - 5)) /* subset response data! */
-            print(NSString(data: newData, encoding: NSUTF8StringEncoding))
-        }
-        task.resume()
-        self.appDelegate.madePin = false
-        print("session deleted :)")
+        appDelegate.loggedOut = true
+        appDelegate.madePin = false
+        udacityNetworking.deleteSession()
     }
     
-    
     @IBAction func pinInfoButtonPressed(sender: AnyObject) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("URLViewController")
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("PinInfo")
         self.presentViewController(controller, animated: true, completion: nil)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.appDelegate.infoDict?.count)!
+        var numberOfRowsInSection: Int
+        if let infoDict = self.appDelegate.infoDict?.count{
+            numberOfRowsInSection = infoDict
+        } else {
+            return 0
+        }
+        return numberOfRowsInSection
     }
-  
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let dictionary = self.appDelegate.infoDict
         let CellID = "Pin Cell"

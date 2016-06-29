@@ -60,7 +60,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIAlertViewDel
                 }
             }
             }, username: self.usernameTextField.text, password: self.passwordTextField.text) //finish all the params
-        
     }
     
     override func viewDidLoad() {

@@ -472,37 +472,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Pjq-CW-K8G">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="WkU-DR-Fes">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Pjq-CW-K8G" firstAttribute="top" secondItem="hcR-A2-jEi" secondAttribute="bottom" id="9Ho-Zb-N18"/>
-                            <constraint firstItem="Pjq-CW-K8G" firstAttribute="bottom" secondItem="R7y-6J-OzT" secondAttribute="top" id="BLA-6y-UzC"/>
-                            <constraint firstAttribute="trailing" secondItem="Pjq-CW-K8G" secondAttribute="trailing" id="sqL-iP-ec1"/>
-                            <constraint firstItem="Pjq-CW-K8G" firstAttribute="leading" secondItem="wXK-NJ-syG" secondAttribute="leading" id="vsg-Co-Yap"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WkU-DR-Fes" secondAttribute="trailing" constant="-20" id="8DK-ty-XpC"/>
+                            <constraint firstItem="WkU-DR-Fes" firstAttribute="leading" secondItem="wXK-NJ-syG" secondAttribute="leadingMargin" constant="-20" id="FOe-zz-u8u"/>
+                            <constraint firstItem="WkU-DR-Fes" firstAttribute="top" secondItem="hcR-A2-jEi" secondAttribute="bottom" id="nPx-hD-Pl2"/>
+                            <constraint firstItem="R7y-6J-OzT" firstAttribute="top" secondItem="WkU-DR-Fes" secondAttribute="bottom" id="sMK-Wd-FjO"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
-                                <exclude reference="Pjq-CW-K8G"/>
+                                <exclude reference="WkU-DR-Fes"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="9Ho-Zb-N18"/>
-                                <exclude reference="BLA-6y-UzC"/>
-                                <exclude reference="sqL-iP-ec1"/>
-                                <exclude reference="vsg-Co-Yap"/>
+                                <exclude reference="sMK-Wd-FjO"/>
+                                <exclude reference="8DK-ty-XpC"/>
+                                <exclude reference="FOe-zz-u8u"/>
+                                <exclude reference="nPx-hD-Pl2"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
-                                <include reference="Pjq-CW-K8G"/>
+                                <include reference="WkU-DR-Fes"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="9Ho-Zb-N18"/>
-                                <include reference="BLA-6y-UzC"/>
-                                <include reference="sqL-iP-ec1"/>
-                                <include reference="vsg-Co-Yap"/>
+                                <include reference="sMK-Wd-FjO"/>
+                                <include reference="8DK-ty-XpC"/>
+                                <include reference="FOe-zz-u8u"/>
+                                <include reference="nPx-hD-Pl2"/>
                             </mask>
                         </variation>
                     </view>
@@ -532,7 +532,7 @@
                     </navigationItem>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
-                        <outlet property="mapView" destination="Pjq-CW-K8G" id="czA-BM-bFL"/>
+                        <outlet property="mapView" destination="WkU-DR-Fes" id="98j-s8-CS5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6LZ-72-Zbu" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -575,7 +575,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NY0-Hg-OGp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1816.5" y="1431"/>
+            <point key="canvasLocation" x="1816" y="1591"/>
         </scene>
         <!--List-->
         <scene sceneID="z3M-vX-Tou">
@@ -741,7 +741,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BmC-hv-SBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2734.5" y="1431"/>
+            <point key="canvasLocation" x="2734" y="1591"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Mob-zr-9VG">
@@ -765,7 +765,7 @@
         <!--Enter Location View Controller-->
         <scene sceneID="YJc-uD-99F">
             <objects>
-                <viewController storyboardIdentifier="URLViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cWC-h3-S05" customClass="EnterLocationViewController" customModule="en_the_map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cWC-h3-S05" customClass="EnterLocationViewController" customModule="en_the_map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="A9E-P7-WqI"/>
                         <viewControllerLayoutGuide type="bottom" id="0zP-qC-OHi"/>
@@ -887,15 +887,18 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="Orx-bD-LyQ"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="activityIndicator" destination="zQv-2c-bWk" id="Fir-qq-ISn"/>
+                        <outlet property="checkButton" destination="1UD-Ln-MXJ" id="UUH-xr-ypL"/>
                         <outlet property="locationField" destination="h0b-r6-PX7" id="Mm1-ph-4Tg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cO-W0-CIQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3625.5" y="714"/>
+            <point key="canvasLocation" x="5307" y="714"/>
         </scene>
         <!--Enter URL View Controller-->
         <scene sceneID="pMs-ya-C6G">
@@ -914,11 +917,17 @@
                                 <color key="textColor" red="0.99990254639999998" green="1" blue="0.99988251920000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="48" y="129" width="240" height="33"/>
+                                </variation>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7Z-ra-yMA">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="38"/>
                                 <state key="normal" title="✔︎"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="184" y="199" width="32" height="58"/>
+                                </variation>
                                 <connections>
                                     <action selector="urlEntered:" destination="hW1-Oh-l7O" eventType="touchUpInside" id="dob-zG-rcF"/>
                                 </connections>
@@ -926,11 +935,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUh-rI-4B4">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="48" y="160" width="240" height="2"/>
+                                </variation>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4mO-ep-VFE">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="35"/>
                                 <state key="normal" title="x"/>
+                                <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                    <rect key="frame" x="185" y="242" width="30" height="62"/>
+                                </variation>
                                 <connections>
                                     <action selector="dismissButtonPressed:" destination="hW1-Oh-l7O" eventType="touchUpInside" id="L6U-YO-d05"/>
                                 </connections>
@@ -993,13 +1008,32 @@
                             </mask>
                         </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="leN-js-1Dz"/>
                     <connections>
                         <outlet property="urlField" destination="Gaq-g7-CY9" id="pJl-rz-D0N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qmA-a3-wF7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4465.5" y="714"/>
+            <point key="canvasLocation" x="6147" y="714"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QbM-EB-Zm2">
+            <objects>
+                <navigationController storyboardIdentifier="PinInfo" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="YqF-2v-uBY" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zVd-Jo-hqf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="cWC-h3-S05" kind="relationship" relationship="rootViewController" id="1go-fC-ska"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BGi-VC-ksN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4389" y="714"/>
         </scene>
     </scenes>
     <resources>
