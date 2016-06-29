@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var madePin: Bool?
     var infoDict: [[String:AnyObject]]?
     var studentInfoArray: [StudentInformation]? //studentInfoArray[index]["value"]
+    var loggedOut: Bool?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

@@ -24,6 +24,9 @@ class EnterLocationViewController: UIViewController {
         activityIndicator.stopAnimating()
         /* http://stackoverflow.com/questions/25679075/set-uitextfield-placeholder-color-programmatically */
         locationField.attributedPlaceholder = NSAttributedString(string: "Location", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        if appDelegate.loggedOut == true {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func alert(title: String, message: String){
@@ -97,6 +100,9 @@ class EnterURLViewController: UIViewController {
         super.viewDidLoad()
         print("PLEASE DONT BE NIL \(appDelegate.latitue!), \(appDelegate.longitude!)")
         urlField.attributedPlaceholder = NSAttributedString(string: "URL", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
+        if appDelegate.loggedOut == true {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     // parse api malfunctioning so I am not able to recieve json to use for the object id
 //    func putPins() {

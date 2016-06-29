@@ -29,6 +29,8 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: {})
+        appDelegate.loggedOut = true
+        appDelegate.madePin = false
         udacityNetworking.deleteSession()
     }
     
@@ -38,9 +40,15 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.appDelegate.infoDict?.count)!
+        var numberOfRowsInSection: Int
+        if let infoDict = self.appDelegate.infoDict?.count{
+            numberOfRowsInSection = infoDict
+        } else {
+            return 0
+        }
+        return numberOfRowsInSection
     }
-  
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let dictionary = self.appDelegate.infoDict
         let CellID = "Pin Cell"

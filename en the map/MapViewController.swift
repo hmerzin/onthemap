@@ -70,10 +70,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
             let studentInfo = StudentInformation(annotationsDict: ["first": first, "last": last, "mediaURL": mediaURL, "latitude": lat, "longitude": long])
             appDelegate.studentInfoArray?.append(studentInfo)
             infoArray.append(studentInfo)
+            print("student info", studentInfo)
         }
-        if let controller = appDelegate.window?.rootViewController?.presentedViewController as? MapViewController {
-            controller.dropPins(infoArray)
-        }
+            self.dropPins(infoArray)
     }
     
     func dropPins(studentInfo: [StudentInformation]) {
@@ -87,7 +86,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
             let lat = dict["latitude"] as? Double
             let long = dict["longitude"] as? Double
             annotation.coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
-            annotation.title = "\(dict["first"]) \(dict["last"])"
+            annotation.title = "\(dict["first"]!) \(dict["last"]!)"
             annotation.subtitle = dict["mediaURL"] as? String
             annotations.append(annotation)
         }
@@ -154,9 +153,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
 
     override func viewDidAppear(animated: Bool) {
         print("Made pin: \(AppDelegate().madePin)")
-        if (AppDelegate().madePin == true) {
-            centerMapOnLocation(CLLocation(latitude: AppDelegate().latitue!, longitude: AppDelegate().longitude!))
+        if (appDelegate.madePin == true) {
+            centerMapOnLocation(CLLocation(latitude: appDelegate.latitue!, longitude: appDelegate.longitude!))
+            appDelegate.madePin = false
         }
+        
     }
     
     @IBAction func pinInfoButtonPressed(sender: AnyObject) {
@@ -185,7 +186,8 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     
     @IBAction func logOutButtonPressed(sender: AnyObject) {
         UdacityNetworking().deleteSession()
-        AppDelegate().madePin = false
+        appDelegate.madePin = false
+        appDelegate.loggedOut = true
         self.dismissViewControllerAnimated(true, completion: nil)
         print("session deleted :)")
     }

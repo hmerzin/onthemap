@@ -53,6 +53,7 @@ class UdacityNetworking {
             print("this is the account dictionary: \(parsedResult["account"])") //prints info about account dict
             print("this is the actual key: \(idKey!)")          //prints actual userid key
             self.getUserData(idKey!)
+            self.appDelegate.UserID = idKey
             // if let parsedResult{} variable binding in a condition requires an initializer
             completionHandler(connection: true, statusCode: statusCode, error: nil)
         }

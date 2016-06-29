@@ -895,7 +895,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cO-W0-CIQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3625.5" y="714"/>
+            <point key="canvasLocation" x="4383" y="714"/>
         </scene>
         <!--Enter URL View Controller-->
         <scene sceneID="pMs-ya-C6G">
@@ -999,7 +999,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qmA-a3-wF7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4465.5" y="714"/>
+            <point key="canvasLocation" x="5223" y="714"/>
         </scene>
     </scenes>
     <resources>
