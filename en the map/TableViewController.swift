@@ -49,17 +49,33 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         return numberOfRowsInSection
     }
     
+    func alert(title: String, message: String){
+        /* http://nshipster.com/uialertcontroller/ */
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+        }
+        alertController.addAction(OKAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let dictionary = self.appDelegate.infoDict
         let CellID = "Pin Cell"
         let cell = tableView.dequeueReusableCellWithIdentifier(CellID, forIndexPath: indexPath) as! PinCell
-        let person = dictionary![indexPath.row]
-        let first = person["firstName"]!
-        let last = person["lastName"]!
-        let url = person["mediaURL"]!
-        cell.nameLabel.text = "\(first) \(last)"
-        cell.urlLabel.text = "\(url)"
+        if dictionary != nil {
+            let person = dictionary![indexPath.row]
+            let first = person["firstName"]!
+            let last = person["lastName"]!
+            let url = person["mediaURL"]!
+            cell.nameLabel.text = "\(first) \(last)"
+            cell.urlLabel.text = "\(url)"
+        } else {
+            self.alert("Error Downloading Pins", message: "The pins could not be downloaded from the server. Please try again later.")
+            cell.nameLabel.text = ""
+            cell.urlLabel.text = ""
+        }
         return cell
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
