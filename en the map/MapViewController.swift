@@ -23,6 +23,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     //let udacityNetworking = UdacityNetworking()
     
     func alert(title: String, message: String){
+        /* http://nshipster.com/uialertcontroller/ */
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+        }
+        alertController.addAction(OKAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     //    func getPin() {
@@ -140,10 +146,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mapView.delegate = self
-        StudentLocationViewModel().getPins({(dict) -> Void in
-            self.createPins(dict)
-        })
+       
         // MARK: Not map things
         /* http://stackoverflow.com/questions/26956728/changing-the-status-bar-color-for-specific-viewcontrollers-using-swift-in-ios8 */
         UIApplication.sharedApplication().statusBarStyle = .LightContent
@@ -151,6 +154,17 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
         self.navigationController!.navigationBar.barTintColor = UIColor.orangeColor()
         /* http://stackoverflow.com/questions/26048765/how-to-set-navigation-bar-font-colour-and-size */
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.mapView.delegate = self
+        
+        StudentLocationViewModel().getPins({(dict) -> Void in
+            if(dict == nil) {
+                print("dict:", dict)
+                self.alert("Error Downloading Pins", message: "The pins could not be downloaded from the server. Please try again later.")
+            } else {
+                self.createPins(dict)
+            }
+        })
+
     }
 
     override func viewDidAppear(animated: Bool) {
