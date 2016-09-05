@@ -35,7 +35,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     @IBAction func pinInfoButtonPressed(sender: AnyObject) {
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("URLViewController")
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("PinInfo")
         self.presentViewController(controller, animated: true, completion: nil)
     }
     

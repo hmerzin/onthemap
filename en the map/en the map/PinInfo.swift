@@ -1,5 +1,5 @@
 //
-//  pin view controller.swift
+//  PinInfo.swift
 //  en the map
 //
 //  Created by Harry Merzin on 6/4/16.
@@ -15,18 +15,18 @@ class EnterLocationViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var locationField: UITextField!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+   // let parseNetworking = ParseNetworking()
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
-    
+    @IBOutlet weak var checkButton: UIButton!
+   
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBarHidden = true
         activityIndicator.hidesWhenStopped = true
         activityIndicator.stopAnimating()
         /* http://stackoverflow.com/questions/25679075/set-uitextfield-placeholder-color-programmatically */
         locationField.attributedPlaceholder = NSAttributedString(string: "Location", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
-        if appDelegate.loggedOut == true {
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
     }
     
     func alert(title: String, message: String){
@@ -73,7 +73,7 @@ class EnterLocationViewController: UIViewController {
                 self.appDelegate.longitude = self.longitude  //"\(placemark.location?.coordinate.longitude)"
                 print("latlong \(self.appDelegate.latitue!), \(self.appDelegate.longitude!)")
                 let controller = self.storyboard!.instantiateViewControllerWithIdentifier("URLVC")
-                self.presentViewController(controller, animated: true, completion: nil)
+                self.showViewController((controller), sender: self.checkButton)
                 self.activityIndicator.stopAnimating()
             }
         })
@@ -100,9 +100,7 @@ class EnterURLViewController: UIViewController {
         super.viewDidLoad()
         print("PLEASE DONT BE NIL \(appDelegate.latitue!), \(appDelegate.longitude!)")
         urlField.attributedPlaceholder = NSAttributedString(string: "URL", attributes: [NSForegroundColorAttributeName:UIColor.whiteColor()])
-        if appDelegate.loggedOut == true {
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
+        self.navigationController?.navigationBarHidden = true
     }
     // parse api malfunctioning so I am not able to recieve json to use for the object id
 //    func putPins() {
@@ -132,30 +130,7 @@ class EnterURLViewController: UIViewController {
         dismiss()
     }
     
-    func postPins() {
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://api.parse.com/1/classes/StudentLocation")!)
-        // from udacity api docs
-        request.HTTPMethod = "POST"
-        request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
-        request.addValue("QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        print(appDelegate.UserID!)
-        print(appDelegate.firstName!)
-        print(appDelegate.lastName!)
-        print(appDelegate.URL!)
-        print(appDelegate.locationString!)
-        print(appDelegate.latitue!)
-        print(appDelegate.longitude!)
-        request.HTTPBody = "{\"uniqueKey\": \"\(appDelegate.UserID!)\", \"firstName\": \"\(appDelegate.firstName!)\", \"lastName\": \"\(appDelegate.lastName!)\",\"mapString\": \"\(appDelegate.locationString!)\", \"mediaURL\": \"\(appDelegate.URL!)\",\"latitude\": \(appDelegate.latitue!), \"longitude\": \(appDelegate.longitude!)}".dataUsingEncoding(NSUTF8StringEncoding)
-        let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithRequest(request) { data, response, error in
-            if error != nil {// Handle error…
-                return
-            }
-            print(NSString(data: data!, encoding: NSUTF8StringEncoding)!)
-        }
-        task.resume()
-    }
+//postPins() here
     
     @IBAction func urlEntered(sender: AnyObject) {
         self.appDelegate.madePin = true
@@ -165,16 +140,13 @@ class EnterURLViewController: UIViewController {
         }
         url = urlField.text?.lowercaseString
         appDelegate.URL = url
-        postPins()
+        ParseNetworking().postPins()
 //        if(appDelegate.hasPin == true) {
 //            putPins()
 //        } else {
 //            postPins()
 //        }
-        
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("MapViewController")
-        self.presentViewController(controller, animated: true, completion: nil)
-        
-        
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("PinInfo")
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
 }

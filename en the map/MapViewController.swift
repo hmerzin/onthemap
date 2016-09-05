@@ -17,11 +17,10 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     var hasPin: Bool?
     var userID: String?
     var madePin = false
+    let parseNetworking = ParseNetworking()
     //let annotation = StudentInformation.annotationsDict: ([[String: AnyObject]])
     let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
-    //let parseNetworking = ParseNetworking()
     //let udacityNetworking = UdacityNetworking()
-    
     func alert(title: String, message: String){
     }
     
@@ -61,18 +60,29 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     func createPins(dictionary: [[String: AnyObject]]?) {
         let locations = dictionary
         var infoArray = [StudentInformation]()
-        for dictionary in locations! {
-            let lat = CLLocationDegrees(dictionary["latitude"] as! Double)
-            let long = CLLocationDegrees(dictionary["longitude"] as! Double)
-            let first = dictionary["firstName"] as! String
-            let last = dictionary["lastName"] as! String
-            let mediaURL = dictionary["mediaURL"] as! String
-            let studentInfo = StudentInformation(annotationsDict: ["first": first, "last": last, "mediaURL": mediaURL, "latitude": lat, "longitude": long])
-            appDelegate.studentInfoArray?.append(studentInfo)
-            infoArray.append(studentInfo)
-            print("student info", studentInfo)
+        for dict in locations! {
+           // print("dictionary: \(dictionary)")
+           // print("lat: ", dictionary["latitude"])
+            if(dict["latitude"] != nil && dict["longitude"] != nil && dict["firstName"] != nil && dict["lastName"] != nil && dict["mediaURL"] != nil) {
+
+                let lat = CLLocationDegrees(dict["latitude"] as! Double)
+
+                let long = CLLocationDegrees(dict["longitude"] as! Double)
+            
+                let first = dict["firstName"] as! String
+            
+                let last = dict["lastName"] as! String
+            
+                let mediaURL = dict["mediaURL"] as! String
+            
+                let studentInfo = StudentInformation(annotationsDict: ["first": first, "last": last, "mediaURL": mediaURL, "latitude": lat, "longitude": long])
+                self.appDelegate.studentInfoArray?.append(studentInfo)
+                infoArray.append(studentInfo)
+                print("student info", studentInfo)
+            }
+            
         }
-            self.dropPins(infoArray)
+        self.dropPins(infoArray)
     }
     
     func dropPins(studentInfo: [StudentInformation]) {
@@ -106,7 +116,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
         if pinView == nil {
             pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
             pinView!.canShowCallout = true
-            pinView!.pinTintColor = UIColor.redColor()
+            let pinColor = UIColor.orangeColor()//(red: 0.45, green: 1.78, blue: 2.25, alpha: 1)
+            pinView!.pinTintColor = pinColor
+            //pinView!.image = UIImage(named: "PinImage")
             pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             pinView?.rightCalloutAccessoryView?.tintColor = UIColor.orangeColor()
         } else {
@@ -139,7 +151,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.delegate = self
-        StudentLocationViewModel().getPins({(dict) -> Void in
+        parseNetworking.getPins({(dict) -> Void in
             self.createPins(dict)
         })
         // MARK: Not map things
@@ -179,7 +191,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
         //            self.presentViewController(alertController, animated: true, completion: nil)
         //}else{
         //self.appDelegate.hasPin = false
-        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("LocationViewController")
+        let controller = self.storyboard!.instantiateViewControllerWithIdentifier("PinInfo")
         self.presentViewController(controller, animated: true, completion: nil)
         //}
     }

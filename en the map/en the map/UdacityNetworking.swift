@@ -47,7 +47,7 @@ class UdacityNetworking {
                 print("Could not parse the data as JSON: '\(data)'")
                 return
             }
-            // print(parsedResult!)                                //prints json
+            print(parsedResult!)                                //prints json
             let userDict = parsedResult["account"]                //account dictionary
             let idKey = userDict!!["key"] as? String              //sets userID from account dictionary
             print("this is the account dictionary: \(parsedResult["account"])") //prints info about account dict
