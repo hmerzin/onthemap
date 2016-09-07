@@ -42,11 +42,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowsInSection: Int
-        if let infoDict = self.appDelegate.infoDict?.count{
-            numberOfRowsInSection = infoDict
-        } else {
-            return 0
-        }
+        numberOfRowsInSection = self.studentInfoStorageModel.infoArray.count
         return numberOfRowsInSection
     }
     

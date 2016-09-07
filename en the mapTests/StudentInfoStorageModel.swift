@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct StudentInfoStorageModel {
+class StudentInfoStorageModel {
     static let sharedInstance = StudentInfoStorageModel()
     var infoArray = [StudentInformation]()
 }
