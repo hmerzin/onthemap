@@ -13,6 +13,7 @@ import MapKit
 class MapViewController: UIViewController, MKMapViewDelegate, UITabBarControllerDelegate, UIAlertViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    var studentInfoStorageModel = StudentInfoStorageModel.sharedInstance
     var locationsDict: [[String:AnyObject]]?
     var hasPin: Bool?
     var userID: String?
@@ -22,6 +23,12 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     let appDelegate = UIApplication.sharedApplication().delegate! as! AppDelegate
     //let udacityNetworking = UdacityNetworking()
     func alert(title: String, message: String){
+        /* http://nshipster.com/uialertcontroller/ */
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let OKAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+        }
+        alertController.addAction(OKAction)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     //    func getPin() {
@@ -59,7 +66,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     
     func createPins(dictionary: [[String: AnyObject]]?) {
         let locations = dictionary
-        var infoArray = [StudentInformation]()
+      //  var infoArray = [StudentInformation]()
         for dict in locations! {
            // print("dictionary: \(dictionary)")
            // print("lat: ", dictionary["latitude"])
@@ -75,29 +82,33 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
             
                 let mediaURL = dict["mediaURL"] as! String
             
-                let studentInfo = StudentInformation(annotationsDict: ["first": first, "last": last, "mediaURL": mediaURL, "latitude": lat, "longitude": long])
-                self.appDelegate.studentInfoArray?.append(studentInfo)
-                infoArray.append(studentInfo)
-                print("student info", studentInfo)
+                let studentInfo = StudentInformation(annotationsDict: ["firstName": first, "lastName": last, "mediaURL": mediaURL, "latitude": lat, "longitude": long])
+                var infoArray = [StudentInformation]()
+                //infoArray.append(studentInfo)
+                
+                
+                self.studentInfoStorageModel.infoArray.append(studentInfo)
+                //infoArray.append(studentInfo)
+                print("studentInfoStorageModel.infoArray:", studentInfoStorageModel.infoArray)
+                //print("info array:", infoArray)
             }
             
         }
-        self.dropPins(infoArray)
+        self.dropPins()
     }
     
-    func dropPins(studentInfo: [StudentInformation]) {
+    func dropPins() {
         // from Pin Sample App
         print("dropPins")
+        print(studentInfoStorageModel.infoArray)
         var annotations = [MKPointAnnotation]()
-        for (index, _) in studentInfo.enumerate() {
+        for (index, _) in self.studentInfoStorageModel.infoArray.enumerate() {
             let annotation = MKPointAnnotation()
-            let infoArray = studentInfo[index]
-            let dict = infoArray.annotationDict
-            let lat = dict["latitude"] as? Double
-            let long = dict["longitude"] as? Double
-            annotation.coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
-            annotation.title = "\(dict["first"]!) \(dict["last"]!)"
-            annotation.subtitle = dict["mediaURL"] as? String
+            let lat = studentInfoStorageModel.infoArray[index].latitude
+            let long = studentInfoStorageModel.infoArray[index].longitude
+            annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            annotation.title = "\(studentInfoStorageModel.infoArray[index].firstName) \(studentInfoStorageModel.infoArray[index].lastName)"
+            annotation.subtitle = studentInfoStorageModel.infoArray[index].mediaURL
             annotations.append(annotation)
         }
         // When the array is complete, we add the annotations to the map.
@@ -152,7 +163,11 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
         super.viewDidLoad()
         self.mapView.delegate = self
         parseNetworking.getPins({(dict) -> Void in
-            self.createPins(dict)
+            if (dict != nil) {
+                self.createPins(dict)
+            } else {
+                self.alert("Download Failed", message: "Unable to download data from server")
+            }
         })
         // MARK: Not map things
         /* http://stackoverflow.com/questions/26956728/changing-the-status-bar-color-for-specific-viewcontrollers-using-swift-in-ios8 */
@@ -166,11 +181,19 @@ class MapViewController: UIViewController, MKMapViewDelegate, UITabBarController
     override func viewDidAppear(animated: Bool) {
         print("Made pin: \(AppDelegate().madePin)")
         if (appDelegate.madePin == true) {
+            self.mapView.removeAnnotations(self.mapView.annotations) //method from: http://stackoverflow.com/questions/32850094/how-do-i-remove-all-map-annotations-in-swift-2
             centerMapOnLocation(CLLocation(latitude: appDelegate.latitue!, longitude: appDelegate.longitude!))
             appDelegate.madePin = false
+            parseNetworking.getPins({(dict) -> Void in
+                if (dict != nil) {
+                    self.createPins(dict)
+                } else {
+                    self.alert("Download Failed", message: "Unable to download data from server")
+                }
+            })
         }
-        
     }
+    
     
     @IBAction func pinInfoButtonPressed(sender: AnyObject) {
         //print("\(self.appDelegate.hasPin!)")

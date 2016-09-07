@@ -13,6 +13,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     @IBOutlet var tableView: UITableView!
     let udacityNetworking = UdacityNetworking()
+    var studentInfoStorageModel = StudentInfoStorageModel.sharedInstance
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad() {
@@ -50,13 +51,14 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let dictionary = self.appDelegate.infoDict
+        let dictionary = self.studentInfoStorageModel.infoArray
+        print("dictionary: \(dictionary)")
         let CellID = "Pin Cell"
         let cell = tableView.dequeueReusableCellWithIdentifier(CellID, forIndexPath: indexPath) as! PinCell
-        let person = dictionary![indexPath.row]
-        let first = person["firstName"]!
-        let last = person["lastName"]!
-        let url = person["mediaURL"]!
+        let person = dictionary[indexPath.row]
+        let first = person.firstName
+        let last = person.lastName
+        let url = person.mediaURL
         cell.nameLabel.text = "\(first) \(last)"
         cell.urlLabel.text = "\(url)"
         return cell

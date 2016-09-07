@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 class ParseNetworking {
-    let mapViewController = MapViewController()
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     func postPins() {
         let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
@@ -36,7 +35,7 @@ class ParseNetworking {
         task.resume()
     }
     
-    func getPins(completion: (dict: [[String:AnyObject]]) -> Void) {
+    func getPins(completion: (dict: [[String:AnyObject]]?) -> Void) {
         /* from udacity api docs */
         let request = NSMutableURLRequest(URL: NSURL(string: "https://parse.udacity.com/parse/classes/StudentLocation")!)
         request.addValue("QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr", forHTTPHeaderField: "X-Parse-Application-Id")
@@ -60,12 +59,17 @@ class ParseNetworking {
             print(parsedResult)
             let resultsDict = parsedResult["results"]! as? [[String:AnyObject]]!
             self.appDelegate.infoDict = resultsDict!
-            let results = parsedResult!["results"]!
-            print(results!)
-            let uniqueKey = results!["uniqueKey"]
-            print("UNIQUE KEY: \(uniqueKey)")
-            print("results: \(results!)")
-            completion(dict: resultsDict!)
+            if let results = parsedResult!["results"]! {
+                print(results)
+                let uniqueKey = results["uniqueKey"]
+                print("UNIQUE KEY: \(uniqueKey)")
+                print("results: \(results)")
+            }
+            if (resultsDict != nil) {
+                completion(dict: resultsDict!)
+            } else {
+                completion(dict: nil)
+            }
         }
         task.resume()
     }

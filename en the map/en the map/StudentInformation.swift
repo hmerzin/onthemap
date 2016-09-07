@@ -9,8 +9,16 @@
 import Foundation
 import CoreLocation
 struct StudentInformation {
-    var annotationDict: [String: AnyObject]
+    var firstName: String
+    var lastName: String
+    var mediaURL: String
+    var latitude: Double
+    var longitude: Double
     init(annotationsDict: [String: AnyObject]) {
-        self.annotationDict = annotationsDict
+        self.firstName = (annotationsDict["firstName"] as? String)!
+        self.lastName = (annotationsDict["lastName"] as? String)!
+        self.mediaURL = (annotationsDict["mediaURL"] as? String)!
+        self.latitude = (annotationsDict["latitude"] as? Double)!
+        self.longitude = (annotationsDict["longitude"] as? Double)!
     }
 }
