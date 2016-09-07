@@ -10,7 +10,7 @@ import UIKit
 import MapKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    /*this is all for the user using the app not for each individual student who's information is being displayed on the map*/
     var window: UIWindow?
     var UserID: String?
     var firstName: String?
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var locationString: String?
     var hasPin: Bool?
     var madePin: Bool?
-    var infoDict: [[String:AnyObject]]?
+    //var infoDict: [[String:AnyObject]]?
     //var studentInfoArray: [StudentInformation]? //studentInfoArray[index]["value"]
     var loggedOut: Bool?
     

@@ -58,7 +58,6 @@ class ParseNetworking {
             }
             print(parsedResult)
             let resultsDict = parsedResult["results"]! as? [[String:AnyObject]]!
-            self.appDelegate.infoDict = resultsDict!
             if let results = parsedResult!["results"]! {
                 print(results)
                 let uniqueKey = results["uniqueKey"]

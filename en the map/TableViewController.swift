@@ -25,7 +25,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.navigationController!.navigationBar.barTintColor = UIColor.orangeColor()
         /* http://stackoverflow.com/questions/26048765/how-to-set-navigation-bar-font-colour-and-size */
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-        print(self.appDelegate.infoDict)
     }
     
     @IBAction func logoutButtonPressed(sender: AnyObject) {
@@ -61,10 +60,10 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let dictionary = appDelegate.infoDict![indexPath.row]
+        let dictionary = studentInfoStorageModel.infoArray[indexPath.row]
         let app = UIApplication.sharedApplication()
-        let toOpen = dictionary["mediaURL"]
+        let toOpen = dictionary.mediaURL
         print(toOpen)
-        app.openURL(NSURL(string: "\(toOpen!)")!)
+        app.openURL(NSURL(string: "\(toOpen)")!)
     }
 }
